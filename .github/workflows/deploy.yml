@@ -7,11 +7,6 @@ on:
     paths:
     - Terraform/**
 
-  pull_request:
-    branches: ["prod"]
-    paths: 
-    - Terraform/**
-
 permissions:
   contents: read
   pull-requests: write
