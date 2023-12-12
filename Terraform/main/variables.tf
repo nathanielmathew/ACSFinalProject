@@ -11,7 +11,7 @@ variable "prefix" {
   type    = string
 }
 
-variable "instance_type" {
+variable "instanceType" {
   default = {
     "prod"    = "t3.medium"
     "staging" = "t3.small"
@@ -88,12 +88,12 @@ variable "security_group_id" {
 }
 
 
-variable "public_subnet" {
+variable "publicSubnet" {
   default = null
   type    = list(string)
 }
 
-variable "key_name_webservers" {
+variable "webServerKey" {
   default = null
   type    = string
 }
@@ -139,3 +139,15 @@ variable "ssh_webservers" {
   type    = list(string)
   default = null
 }
+
+# variable "instance_type" {
+#   type = map(string)
+# }
+
+# variable "key_name_webservers" {
+#   type = string
+# }
+
+# variable "security_group_id" {
+#   type = list(string)
+# }
