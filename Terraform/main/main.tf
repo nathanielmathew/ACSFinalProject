@@ -15,8 +15,6 @@ terraform {
   }
 }
 
-
-
 module "Network" {
   source               = "../Modules/network"
   region               = var.region
@@ -32,18 +30,6 @@ module "Network" {
 }
 
 
-# module "SG" {
-#   source       = "../Modules/SG"
-#   env          = var.env
-#   default_tags = var.default_tags
-#   prefix       = var.prefix
-
-#   vpc_id         = module.vpc.vpc_id
-#   ssh_webservers = [module.SG.ssh_sg_id]
-
-# }
-
-
 data "aws_ami" "latestAmazonLinux" {
   owners      = ["amazon"]
   most_recent = true
@@ -52,10 +38,6 @@ data "aws_ami" "latestAmazonLinux" {
     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
 }
-
-
-
-
 
 
 #Bastion deployment
@@ -85,7 +67,7 @@ resource "aws_instance" "bastion" {
 
 resource "aws_instance" "webServer" {
   count         = 3
-  subnet_id     = module.Network.publicSubnetID[count.index]
+  subnet_id     = module.Network.publicSubnetID[count.index+1]
   ami           = data.aws_ami.latestAmazonLinux.id
   instance_type = lookup(var.instanceType, var.env)
   key_name      = local.name_prefix
@@ -94,7 +76,7 @@ resource "aws_instance" "webServer" {
   #tag_specifications 
     tags = merge(local.default_tags, {
       "Name" = "${local.name_prefix}-WebServer${count.index+2}"
-      "Type" = "TFWebserver"
+      "Type" = (count.index == 0) ? "TFWebserver" : "AnsibleWebserver" 
       
     })
     user_data = (count.index == 0) ? templatefile("${path.module}/install_httpd.sh.tpl", {env=upper(var.env), prefix = upper(var.prefix)}) : null  
