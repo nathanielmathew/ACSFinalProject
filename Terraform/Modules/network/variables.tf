@@ -48,7 +48,10 @@ variable "privateCIDR" {
   type = map(list(string))
 }
 
-
+variable "publicSubnet" {
+  default = null
+  type    = list(string)
+}
 
 /*
 variable "create_s3_endpoint" {
