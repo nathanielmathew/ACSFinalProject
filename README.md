@@ -9,10 +9,12 @@ The red flow represents how Ansible configures webservers 3 and 4 in public subn
 
 ## Steps to run the project
 1. Provision an S3 bucket and add the bucket name to the Terraform/main/config.tf file
-2. Run the terraform code to provision resources
+2. Create keypairs and run the terraform code to provision resources
 ````
 ```
 cd  Terraform/main/main.tf 
+ssh-keygen -t rsa -f team9project-prod
+ssh-keygen -t rsa -f bastion-team9project-prod
 alias tf=terraform
 tf init
 tf validate
