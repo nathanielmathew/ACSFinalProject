@@ -51,3 +51,7 @@ Virtual machine in private subnet.
 ### Execution screenshot
 <img src="./projectSS.png"></img>
 
+
+### Conclusion
+
+Thanks to this project, we went deeper into the details of how GitHub Actions/Workflows works and how this CI/CD tool can efficiently help us deliver code. We encountered an issue while using Gitflows, where the Workflows were not being triggered, even though we executed the actions specified in the YAML file. After some reading in the documentation, we realized that, accidentally, when modularizing the Gitflows for linting and security, we left the parameter "path:" for all environments. After removing it, we obtained the desired result and gained a better understanding of the tool. Additionally, while executing our deployment playbook, Ansible was not able to identify any host. We solved this issue when we noticed that while creating the Ansible dynamic inventory file, we did not put the prefix in the host names specified in the aws_ec2.yaml file.
