@@ -53,7 +53,7 @@ jobs:
     
       - name: Terraform Plan
         id: plan
-        run: terraform plan -no-color -out tf.plan
+        run: terraform plan -input=false -no-color -out tf.plan
         working-directory: ./Terraform # Use your environment folder
         continue-on-error: true
 
@@ -107,6 +107,6 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -auto-approve
+        run: terraform apply -input=false tf.plan
         working-directory: ./Terraform # Use your environment folder
         shell: bash
